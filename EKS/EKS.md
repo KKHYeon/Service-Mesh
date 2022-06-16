@@ -199,7 +199,10 @@ https://aws.amazon.com/ko/premiumsupport/knowledge-center/eks-unhealthy-worker-n
 ```
 해결: ingress.yaml 에 annotation 추가
 `kubernetes.io/ingress.class: "nginx"`
-</br>=> 접속됨(위에 unhealthy 해결 안하고 이거만 해결해도 접속은 됨)
+</br>=> 접속됨</br>
+위에 unhealthy 해결 안하고 이거만 해결해도 접속은 됨 => ??</br>
+> nginx ingress controller 파드 로그
+> </br>`54.180.72.55 - - [16/Jun/2022:05:53:09 +0000] "GET /nginxTest HTTP/1.1" 200 615 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15" 440 0.003 [default-khy-nginx-nlb-80] [] 192.168.9.97:80 615 0.000 200 69621af0fc185a0a3926b289c5c48766`
 ### API 어플리케이션 배포
 ```shell
 cd ~/k8s-aws-book/backend-app

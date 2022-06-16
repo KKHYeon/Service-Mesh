@@ -326,7 +326,7 @@ metadata:
   name: ingress-nginx-controller
   namespace: ingress-nginx
 spec:
-  externalTrafficPolicy: Cluster
+  externalTrafficPolicy: Local
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -474,6 +474,7 @@ spec:
               readOnly: true
       dnsPolicy: ClusterFirst
       nodeSelector:
+#        key: 2b
         kubernetes.io/os: linux
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300

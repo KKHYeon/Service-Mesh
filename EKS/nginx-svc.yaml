@@ -4,7 +4,7 @@ metadata:
   name: khy-nginx-nlb
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-name: "khy-nginx-nlb"
+    service.beta.kubernetes.io/aws-load-balancer-name: khy-nginx-nlb
 spec:
   selector:
     app: nginx-app
