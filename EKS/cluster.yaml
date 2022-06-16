@@ -1,0 +1,32 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: khy-project-cluster
+  region: ap-northeast-2
+
+iam:
+  serviceRoleARN: arn:aws:iam::220027011155:role/khy-eks-cluster-role
+
+vpc:
+  id: vpc-0f414ba95ca3ece97
+  subnets:
+    public:
+      ap-northeast-2a: { id: subnet-0c391d20b1fc9700d }
+      ap-northeast-2b: { id: subnet-0fd835ea3171080a4 }
+    private:
+      ap-northeast-2a: { id: subnet-06cb3b4e241f3191b }
+      ap-northeast-2b: { id: subnet-0a3cb9dcd105895fb }
+
+nodeGroups:
+  - name: private-ng
+    instanceType: t3.small
+    privateNetworking: true
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 5
+    volumeSize: 80
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["controllerManager", "authenticator"]
