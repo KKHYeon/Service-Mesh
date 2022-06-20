@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: istio-ingress
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /nginxTest
+            pathType: Prefix
+            backend:
+              service:
+                name: khy-nginx-nlb
+                port:
+                  number: 80
+          - path: /apacheTest
+            pathType: Prefix
+            backend:
+              service:
+                name: khy-apache-nlb
+                port:
+                  number: 80

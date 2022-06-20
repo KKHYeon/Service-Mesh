@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP2
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: testvirtualsvc
+spec:
+  hosts:
+    - khy-nginx-nlb
+  gateways:
+    - istio-gateway
+  http:
+    - match:
+      - uri:
+          prefix: /nginxTest
+      route:
+        - destination:
+            host: khy-nginx-nlb
+            port:
+              number: 80
+#    - match:
+#        - uri:
+#            prefix: /apacheTest
+#        route:
+#          - destination:
+#              host: apache-deployment
+#              port:
+#                number: 80
