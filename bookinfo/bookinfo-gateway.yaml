@@ -1,0 +1,41 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: bookinfo-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller (pod)
+  servers:
+    - port:
+        number: 80 # expose 80 port
+        name: http
+        protocol: HTTP2
+      hosts:
+        - "*" # to select all VirtualService hosts from the specified namespace (e.g.,prod/*)
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bookinfo
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - bookinfo-gateway
+  http:
+    - match: # 아래 조건들과 match되면
+        - uri:
+            exact: /productpage
+        - uri:
+            prefix: /static
+        - uri:
+            exact: /login
+        - uri:
+            exact: /logout
+        - uri:
+            prefix: /api/v1/products
+      route: # destination으로 보냄
+        - destination:
+            host: productpage # interpreted as productpage.default.svc.cluster.local
+            port:
+              number: 9080
