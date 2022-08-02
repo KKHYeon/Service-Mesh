@@ -1,0 +1,6 @@
+connectInject:
+  enabled: true
+
+controller:
+  enabled: true
+

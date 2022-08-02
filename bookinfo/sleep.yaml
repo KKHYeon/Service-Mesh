@@ -13,37 +13,54 @@
 #   limitations under the License.
 
 ##################################################################################################
-# Details service v2
+# Sleep service
 ##################################################################################################
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sleep
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sleep
+  labels:
+    app: sleep
+    service: sleep
+spec:
+  ports:
+    - port: 80
+      name: http
+  selector:
+    app: sleep
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: details-v2
-  labels:
-    app: details
-    version: v2
+  name: sleep
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: details
-      version: v2
+      app: sleep
   template:
     metadata:
       labels:
-        app: details
-        version: v2
+        app: sleep
     spec:
+      terminationGracePeriodSeconds: 0
+      serviceAccountName: sleep
       containers:
-        - name: details-v2
-          image: docker.io/istio/examples-bookinfo-details-v2:1.16.4
-#          image: docker.io/kang01019/details-v2:1.0
+        - name: sleep
+          image: curlimages/curl
+          command: ["/bin/sleep", "3650d"]
           imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 9080
-          env:
-            - name: DO_NOT_ENCRYPT
-              value: "false"
-          securityContext:
-            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /etc/sleep/tls
+              name: secret-volume
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: sleep-secret
+            optional: true
 ---

@@ -13,31 +13,30 @@
 #   limitations under the License.
 
 ##################################################################################################
-# Details service v2
+# Details service v3
 ##################################################################################################
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: details-v2
+  name: details-v3
   labels:
     app: details
-    version: v2
+    version: v3
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: details
-      version: v2
+      version: v3
   template:
     metadata:
       labels:
         app: details
-        version: v2
+        version: v3
     spec:
       containers:
-        - name: details-v2
-          image: docker.io/istio/examples-bookinfo-details-v2:1.16.4
-#          image: docker.io/kang01019/details-v2:1.0
+        - name: details
+          image: docker.io/kang01019/details-v2:1.0.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9080

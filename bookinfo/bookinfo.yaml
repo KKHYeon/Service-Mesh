@@ -78,6 +78,13 @@ spec:
             - containerPort: 9080
           securityContext:
             runAsUser: 1000
+#          resources:
+#            requests:
+#              cpu: 700m
+#              memory: 512Mi
+#            limits:
+#              cpu: 1000m
+#              memory: 768Mi
 ---
 ##################################################################################################
 # Ratings service

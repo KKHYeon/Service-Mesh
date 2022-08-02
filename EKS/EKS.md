@@ -27,7 +27,7 @@ eksctl create cluster \
 ⇢ API 서버 다중 AZ때문인가?? etcd는??
 
 > **오류 발생**
-![](img/스크린샷 2022-06-13 오후 2.46.09.png)
+![](../img/스크린샷 2022-06-13 오후 2.46.09.png)
 Code=Ec2SubnetInvalidConfiguration, Message=One or more Amazon EC2 Subnets of [subnet-..., subnet-...] for node group khy-cluster-nodegroup does not automatically assign public IP addresses to instances launched into it. If you want your instances to be assigned a public IP address, then you need to enable auto-assign public IP address for the subnet.
 </br>→ subnet의 Enable auto-assign public IPv4 address 활성화
 ### EKS 클러스터 삭제
@@ -40,12 +40,12 @@ eksctl delete cluster --region=ap-northeast-2 --name=khy-cluster --profile deali
 kubectl config get-contexts
 ```
 현재 context → 현재 kubectl이 통신하고 설정 정보를 수정하는 쿠버네티스 클러스터
-![](img/스크린샷 2022-06-13 오후 4.30.44.png)
+![](../img/스크린샷 2022-06-13 오후 4.30.44.png)
 ### 노드 상태 확인
 ```shell
 kubectl get nodes
 ```
-![](img/스크린샷 2022-06-13 오후 4.31.03.png)
+![](../img/스크린샷 2022-06-13 오후 4.31.03.png)
 
 ### Control Plane & Data Plane / Master Node & Worker Node
 #### Control Plane => master node에서 돌어감?
@@ -203,15 +203,5 @@ https://aws.amazon.com/ko/premiumsupport/knowledge-center/eks-unhealthy-worker-n
 위에 unhealthy 해결 안하고 이거만 해결해도 접속은 됨 => ??</br>
 > nginx ingress controller 파드 로그
 > </br>`54.180.72.55 - - [16/Jun/2022:05:53:09 +0000] "GET /nginxTest HTTP/1.1" 200 615 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Safari/605.1.15" 440 0.003 [default-khy-nginx-nlb-80] [] 192.168.9.97:80 615 0.000 200 69621af0fc185a0a3926b289c5c48766`
-### API 어플리케이션 배포
-```shell
-cd ~/k8s-aws-book/backend-app
-sudo chmod 755 ./gradlew
-./gradlew clean build  
-```
-### 프론트엔드 배포
-```shell
-cd ~/k8s-aws-book/frontend-app
-```
 
 출처: https://kubernetes.io/ko/docs/concepts/, https://aws.github.io/aws-eks-best-practices

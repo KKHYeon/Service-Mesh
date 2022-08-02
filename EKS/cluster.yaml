@@ -26,7 +26,9 @@ nodeGroups:
     minSize: 2
     maxSize: 5
     volumeSize: 80
+    ssh:
+      publicKeyName: khy-eks
 
-cloudWatch:
-  clusterLogging:
-    enableTypes: ["controllerManager", "authenticator"]
+#cloudWatch:
+#  clusterLogging:
+#    enableTypes: ["controllerManager", "authenticator"]

@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: bookinfo-egressgateway
+#  namespace: istio-system
+spec:
+  selector:
+    istio: egressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "www.googleapis.com"
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+        - "www.googleapis.com"
+      tls:
+        mode: PASSTHROUGH
+
